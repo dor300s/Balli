@@ -1,0 +1,159 @@
+.home {
+    overflow: hidden;
+    height: 100vh;
+    background-position: center;
+    .ball {
+        background-image: linear-gradient(45deg, $clr5, lighten($clr5, 15));
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        position: absolute;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        cursor: grab;
+        filter: contrast(3);
+        &:active {
+            cursor: grabbing;
+        }
+    }
+
+    .indicator {
+        position: absolute;
+        user-select: none;
+        opacity: 0.5;
+    }
+
+    .wall {
+        background-color: #444;
+        width: 5vw;
+        border-radius: 5px;
+        max-width: 70px;
+        position: absolute;
+        box-shadow: 0 0 4px 1px black;
+        background-position: top;
+    }
+
+    .target {
+        background-color: #2ecc71;
+        background-image: linear-gradient(45deg, #259753, #2ecc71);
+        object-fit: cover;
+        width: 20px;
+        position: absolute;
+        border-radius: 2.5rem;
+        border: 1px solid rgba($color: #000000, $alpha: 0.1);
+        &.anim {
+            animation: target 10s infinite;
+        }
+    }
+
+    .info-action-container {
+        position: absolute;
+        padding: 10px;
+        .current-level {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: $clr5;
+            margin-bottom: 5px;
+        }
+        button {
+            border: 0;
+            background-color: $clr6;
+            color: $clr2;
+            margin-right: 10px;
+            padding: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+            outline: none;
+            &:hover {
+                transform: scale(1.1);
+            }
+        }
+    }
+
+    .victory-modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 30px;
+        width: 90%;
+        max-width: 400px;
+        height: 200px;
+        border-radius: 24px;
+        background-color: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(5px);
+
+        h2 {
+            font-size: 2.5rem;
+            color: $clr5;
+            margin-bottom: 20px;
+        }
+
+        .buttons-wrapper {
+            button {
+                margin: 0 20px;
+                width: 80px;
+                height: 40px;
+                border: 0;
+                border-radius: 5px;
+                cursor: pointer;
+                letter-spacing: 0.5px;
+                color: $clr6;
+                background-color: $clr2;
+                outline: none;
+                &:hover {
+                    background-color: $clr5;
+                }
+            }
+        }
+    }
+
+    .change-level-modal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 30px;
+        width: 90%;
+        max-width: 400px;
+        height: 200px;
+        border-radius: 24px;
+        background-color: rgba(255, 255, 255, 0.45);
+        backdrop-filter: blur(5px);
+
+        h3 {
+            color: $clr5;
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .levels-wrapper {
+            .level {
+                width: 50px;
+                height: 50px;
+                text-align: center;
+                font-size: 1.5rem;
+                padding: 10px;
+                margin: 0 10px;
+                border-radius: 5px;
+                color: $clr6;
+                background-color: $clr2;
+                cursor: pointer;
+                &:hover {
+                    background-color: $clr5;
+                }
+            }
+        }
+    }
+}
+
+@keyframes target {
+    0%,
+    100% {
+        top: 10vh;
+    }
+    50% {
+        top: calc(90vh - 200px);
+    }
+}
