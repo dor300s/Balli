@@ -10,9 +10,8 @@
       :style="{
         left: ball.pos.x + 'px',
         top: ball.pos.y + 'px',
-        //'background-image': `url(${require('../style/images/ball.svg')})`,
       }"
-    ></div>
+    />
 
     <div
       class="indicator fs24"
@@ -38,7 +37,7 @@
         height: wall.height + 'vh',
         'background-image': `url(${require('../style/images/brick.jpg')})`,
       }"
-    ></div>
+    />
 
     <div
       ref="target"
@@ -48,53 +47,44 @@
         height: target.height + 'px',
       }"
       class="target"
-      v-bind:class="{ anim: isGameOn }"
-    ></div>
+      :class="{ anim: isGameOn }"
+    />
 
-    <div class="info-action-container">
-      <div class="current-level">Level: {{ getLevel }}</div>
-      <button @click="resetGame">Reset</button>
-      <button @click="onOpenLevelsModal">Levels</button>
-    </div>
+    <LevelDetails
+      :getLevel="getLevel"
+      :resetGame="resetGame"
+      :onOpenLevelsModal="onOpenLevelsModal"
+    />
 
-    <div
-      class="victory-modal flex column justify-center align-center"
-      v-show="isVictory"
-    >
-      <h2>Good Job!</h2>
-      <div class="buttons-wrapper flex space-between">
-        <button @click="resetGame">Reset</button>
-        <button @click="onNextLevel" v-show="getLevel !== getStagesLength">
-          Next Level
-        </button>
-      </div>
-    </div>
+    <VictoryModal
+      :isVictory="isVictory"
+      :resetGame="resetGame"
+      :onNextLevel="onNextLevel"
+      :getLevel="getLevel"
+      :getStagesLength="getStagesLength"
+    />
 
-    <div
-      v-show="isLevelModalOpen"
-      ref="levelModal"
-      class="change-level-modal flex column align-center justify-center"
-    >
-      <h3>levels</h3>
-      <div class="levels-wrapper flex">
-        <div
-          v-for="stage in getUnlockedStages"
-          :key="stage.level"
-          class="level"
-          @click="() => onSelectLevel(stage.level)"
-        >
-          {{ stage.level }}
-        </div>
-      </div>
-    </div>
+    <LevelsModal
+      :isLevelModalOpen="isLevelModalOpen"
+      :unlockedStages="getUnlockedStages"
+      :onSelectLevel="onSelectLevel"
+      :onCloseLevelsModal="onCloseLevelsModal"
+    />
+    
   </div>
 </template>
 
 <script>
+import LevelDetails from '../components/LevelDetails';
+import VictoryModal from '../components/VictoryModal';
+import LevelsModal from '../components/LevelsModal';
 
 export default {
   name: 'Home',
   components: {
+    LevelDetails,
+    VictoryModal,
+    LevelsModal
   },
   data() {
     return {
@@ -268,6 +258,9 @@ export default {
     onOpenLevelsModal() {
       this.isLevelModalOpen = true;
     },
+    onCloseLevelsModal() {
+      this.isLevelModalOpen = false;
+    },
     onSelectLevel(level) {
       this.$store.commit('setLevel', level);
       this.onGetWalls();
@@ -276,10 +269,7 @@ export default {
       });
       this.isLevelModalOpen = false;
     },
-    handleClick(e) {
-      if (!this.isLevelModalOpen) return;
-      if (!this.$refs.levelModal.contains(e.target)) this.isLevelModalOpen = false;
-    }
+
   },
   mounted() {
     this.setStartPos();
@@ -297,7 +287,6 @@ export default {
     window.addEventListener('mouseup', this.throwBall);
     window.addEventListener('touchend', this.throwBall);
     window.addEventListener('resize', this.onWindowResize);
-    window.addEventListener('mousedown', this.handleClick);
   },
   created() {
 
@@ -310,7 +299,6 @@ export default {
     window.removeEventListener('mouseup', this.throwBall);
     window.removeEventListener('touchend', this.throwBall);
     window.removeEventListener('resize', this.onWindowResize);
-    window.removeEventListener('mousedown', this.handleClick);
   }
 
 }

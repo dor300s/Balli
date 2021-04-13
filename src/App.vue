@@ -1,16 +1,16 @@
 <template>
   <div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
 <script>
-    export default {
-        name: 'app',
-        created () {
-            document.title = "Balli";
-        }
-    }
+export default {
+  name: 'app',
+  created() {
+    document.title = 'Balli';
+  },
+};
 </script>
 
 <style lang="scss">

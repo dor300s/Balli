@@ -1,0 +1,37 @@
+.level-modal-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 30px;
+    width: 90%;
+    max-width: 400px;
+    height: 200px;
+    border-radius: 24px;
+    background-color: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(5px);
+
+    h3 {
+        color: $clr5;
+        font-size: 2rem;
+        margin-bottom: 20px;
+    }
+
+    .levels-wrapper {
+        .level {
+            width: 50px;
+            height: 50px;
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 10px;
+            margin: 0 10px;
+            border-radius: 5px;
+            color: $clr6;
+            background-color: $clr2;
+            cursor: pointer;
+            &:hover {
+                background-color: $clr5;
+            }
+        }
+    }
+}
